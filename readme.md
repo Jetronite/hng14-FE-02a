@@ -1,160 +1,238 @@
-# 🚀 Frontend Wizards — Stage 0
+# 🚀 Frontend Wizards — Stage 1a
 
-## Testable Todo Item Card
+## Advanced Todo Card (Interactive & Stateful)
 
-A clean, modern, and accessible **Todo Task Card component** built with a strong focus on:
+## 📌 Overview
 
-* ✅ Testability
-* ♿ Accessibility (a11y)
-* 📱 Responsiveness
+In **Stage 1a**, the Todo Card evolves from a static UI into a more interactive, stateful component. This stage focuses on enhancing usability, accessibility, and responsiveness while still maintaining a single-card architecture (not a full app).
 
 ---
 
-## 🧠 Overview
+## ✨ What Changed from Stage 0
 
-This project implements a **single Todo Card UI component** that simulates a task item you might find in productivity apps.
+Compared to Stage 0, the Todo Card now includes:
 
-The goal is to demonstrate:
-
-* Proper semantic HTML
-* Accessibility best practices
-* Responsive layout design
-* Basic interactivity using JavaScript
-
----
-
-## 🧩 Features
-
-* Task title and description
-* Priority indicator (Low / Medium / High)
-* Status display (Pending / In Progress / Done)
-* Due date with formatted output
-* Dynamic time remaining (e.g., *"Due in 3 days"*)
-* Completion toggle (checkbox)
-* Tags / categories
-* Edit & Delete actions (mock interactions)
+* Editable content (title, description, priority, due date)
+* Status transitions (Pending, In Progress, Done)
+* Expand/collapse functionality for long descriptions
+* Real-time time tracking (with overdue detection)
+* Visual indicators for priority and status
+* Improved accessibility (ARIA attributes, keyboard navigation)
+* Better responsive behavior across screen sizes
 
 ---
 
-## 🧪 Testability
+## 🆕 Features Implemented
 
-All critical elements include **`data-testid` attributes** for automated testing.
+### 📝 1. Edit Mode
 
-### Required Test IDs
+Users can modify todo details through an edit form.
 
-| Element        | data-testid                 |
-| -------------- | --------------------------- |
-| Card Container | `test-todo-card`            |
-| Title          | `test-todo-title`           |
-| Description    | `test-todo-description`     |
-| Priority       | `test-todo-priority`        |
-| Due Date       | `test-todo-due-date`        |
-| Time Remaining | `test-todo-time-remaining`  |
-| Status         | `test-todo-status`          |
-| Checkbox       | `test-todo-complete-toggle` |
-| Tags Container | `test-todo-tags`            |
-| Edit Button    | `test-todo-edit-button`     |
-| Delete Button  | `test-todo-delete-button`   |
+**Includes:**
 
-Optional tag identifiers:
+* Title input
+* Description textarea
+* Priority dropdown
+* Due date input
+* Save & Cancel buttons
 
-* `test-todo-tag-work`
-* `test-todo-tag-urgent`
+**Behavior:**
+
+* Clicking **Edit** opens the form
+* **Save** updates the card
+* **Cancel** restores previous values
+* Focus returns to Edit button after closing
+* (Bonus) Focus is trapped within the form while editing
 
 ---
 
-## ♿ Accessibility
+### 🔄 2. Status Controls
 
-This component follows accessibility best practices:
+Status is now interactive instead of static.
 
-* Semantic HTML (`article`, `time`, `button`, `label`, `ul/li`)
-* Fully keyboard navigable
-* Accessible checkbox with label
-* Proper button elements (no div hacks)
-* Visible focus states
-* Readable color contrast (WCAG AA)
+**Available statuses:**
+
+* Pending
+* In Progress
+* Done
+
+**Behavior rules:**
+
+* Checkbox toggle → sets status to **Done**
+* Setting status to **Done** → checkbox becomes checked
+* Unchecking after Done → resets to **Pending**
+* UI stays synchronized across:
+
+  * Checkbox
+  * Status display
+  * Status control
+
+---
+
+### 🎯 3. Priority Indicator
+
+Visual cues reflect task priority:
+
+* **Low** → subtle styling
+* **Medium** → moderate emphasis
+* **High** → strong visual highlight (e.g., bold color/accent)
+
+This may include:
+
+* Colored dots
+* Border accents
+* Background styling
+
+---
+
+### 📖 4. Expand / Collapse Description
+
+Handles long descriptions cleanly.
+
+**Behavior:**
+
+* Collapses by default if content exceeds a threshold
+* Expand button reveals full content
+* Toggle is keyboard accessible
+
+---
+
+### ⏱️ 5. Time Management Enhancements
+
+Dynamic and real-time time tracking.
+
+**Features:**
+
+* Displays:
+
+  * "Due in 2 days"
+  * "Due in 3 hours"
+  * "Due in 45 minutes"
+  * "Overdue by 1 hour"
+* Updates every **30–60 seconds**
+* When marked **Done**:
+
+  * Stops updating
+  * Displays: `"Completed"`
+
+---
+
+### ⚠️ 6. Overdue Indicator
+
+Clearly signals overdue tasks.
+
+* Visual alert (e.g., red text or badge)
+* Explicit "Overdue" label
+* Triggered when due date passes and task is not completed
+
+---
+
+## 🎨 Visual State Changes
+
+| State         | Behavior                            |
+| ------------- | ----------------------------------- |
+| Done          | Strike-through title, muted styling |
+| High Priority | Strong highlight/accent             |
+| Overdue       | Red indicator                       |
+| In Progress   | Distinct styling                    |
+
+---
+
+## ♿ Accessibility Notes
+
+* All form fields use proper `<label for="">`
+* Status control has an accessible name
+* Expand toggle uses:
+
+  * `aria-expanded`
+  * `aria-controls`
+* Collapsible section has a matching `id`
+* Live time updates use:
+
+  * `aria-live="polite"`
+
+### ⌨️ Keyboard Navigation Order
+
+1. Checkbox
+2. Status control
+3. Expand toggle
+4. Edit
+5. Delete
+6. Save/Cancel (in edit mode)
 
 ---
 
 ## 📱 Responsiveness
 
-Designed to work across all screen sizes:
+### Supported Breakpoints:
 
-* **Mobile (320px+)**
+* **Mobile (320px)**
+* **Tablet (768px)**
+* **Desktop (1024px+)**
 
-  * Full-width layout
-  * Stacked content
+### Behavior:
 
-* **Tablet & Desktop**
+* Edit form stacks vertically on mobile
+* Priority & status align horizontally on desktop
+* Handles:
 
-  * Max width: ~450px
-  * Centered card layout
-  * Flexible tag wrapping
-
-No horizontal overflow at any breakpoint.
-
----
-
-## ⚙️ Behavior
-
-### Completion Toggle
-
-* Marks task as complete
-* Updates status to **Done**
-* Applies visual strike-through
-
-### Time Remaining
-
-* Displays human-readable time:
-
-  * *Due in X days*
-  * *Due tomorrow*
-  * *Overdue by X hours*
-
-### Actions
-
-* **Edit** → Logs action to console
-* **Delete** → Displays alert (mock behavior)
+  * Long titles
+  * Wrapped tags
+  * Extremely long descriptions
+* No layout breaking or overflow issues
 
 ---
 
-## 🛠 Tech Stack
+## 🧪 Acceptance Criteria Checklist
 
-* HTML5
-* CSS3
-* Vanilla JavaScript
-
----
-
-## 🚀 Live Demo
-
-👉 *[Add your deployed link here]*
-(Recommended: Vercel or Netlify)
-
----
-
-## 📂 Repository
-
-👉 *[Add your GitHub repo link here]*
-(Hosted on GitHub)
+* ✅ All Stage 0 test IDs still exist
+* ✅ All new test IDs implemented
+* ✅ Fully functional edit mode
+* ✅ Status transitions synchronized
+* ✅ Expand/collapse accessible
+* ✅ Overdue logic accurate
+* ✅ No visual overflow across screen sizes
+* ✅ Full keyboard usability
+* ✅ Time updates dynamically
+* ✅ Clean and maintainable state management
 
 ---
 
-## 📌 Notes
+## 🛠️ Design Decisions
 
-* This is a **single component**, not a full Todo app
-* Data is hardcoded for demonstration purposes
-* Designed to meet strict automated testing requirements
-
----
-
-## 📅 Deadline
-
-**April 16, 2026**
+* Chose controlled state for all editable fields for predictability
+* Centralized status logic to avoid inconsistencies
+* Used interval-based updates for time tracking
+* Prioritized accessibility early to avoid retrofitting
+* Designed UI to scale without introducing layout shifts
 
 ---
 
-## 🙌 Acknowledgment
+## ⚠️ Known Limitations
 
-Frontend Wizards Challenge — Stage 0
-Focused on building strong foundations in UI engineering.
+* Time updates rely on client-side intervals (may drift slightly)
+* No persistent storage (state resets on refresh)
+* Focus trapping in edit mode may not cover all edge cases
+* Animations (if any) are minimal
+
+---
+
+## 📦 Submission Details
+
+* 🔗 Live URL: *[Add your deployed link]*
+* 📁 GitHub Repo: *[Add repository link]*
+* 🗂️ Airtable Link: *[Add link]*
+* 📄 Submission Form:
+  https://docs.google.com/forms/d/e/1FAIpQLSfyENWbGf9qRkmDj77BIEAPkO0WwIqDpeR6_dte026HA-KuWQ/viewform
+
+---
+
+## ⏰ Deadline
+
+**17/04/2026 — 11:59 PM**
+
+---
+
+## 🙌 Summary
+
+Stage 1a transforms the Todo Card into a more realistic, interactive component by introducing state synchronization, accessibility improvements, and real-time behavior—laying the groundwork for a full application in future stages.
