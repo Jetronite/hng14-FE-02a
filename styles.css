@@ -1,0 +1,202 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  margin: 10px 0;
+}
+
+.description {
+  color: #555;
+}
+
+.meta {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.high {
+  background: #ffe5e5;
+  color: #c00;
+}
+
+.status {
+  background: #e5f0ff;
+  color: #0044cc;
+}
+
+.dates {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  background: #eee;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 2px solid blue;
+}
+
+/* Completed state */
+.completed .title {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .card {
+    padding: 15px;
+  }
+}
+
+/* Collapsible Logic */
+.collapsible-content {
+  overflow: hidden;
+  max-height: 60px;
+  /* Default height */
+  transition: max-height 0.3s ease-out;
+}
+
+.btn-text {
+  background: none;
+  color: #0044cc;
+  padding: 5px 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Edit Form Overlay/Section */
+.edit-form {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Dynamic Badge Colors (Matches JS .toLowerCase() logic) */
+.badge.high {
+  background: #ffe5e5;
+  color: #c00;
+}
+
+.badge.medium {
+  background: #fff4e5;
+  color: #a60;
+}
+
+.badge.low {
+  background: #e5ffe5;
+  color: #008000;
+}
+
+.badge.status.done {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badge.status.in-progress {
+  background: #e5f0ff;
+  color: #0044cc;
+}
+
+.badge.status.pending {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Overdue Indicator Style */
+[data-testid="test-todo-overdue-indicator"] {
+  color: #d00;
+  font-weight: bold;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-save {
+  background: #0044cc;
+  color: white;
+}
+
+.btn-delete {
+  background: #fff1f1;
+  color: #c00;
+}
